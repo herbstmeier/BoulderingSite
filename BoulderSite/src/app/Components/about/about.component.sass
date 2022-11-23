@@ -1,0 +1,27 @@
+:host
+    display: contents
+
+.bottom
+    display: grid
+    grid-template-columns: 1fr 1fr
+
+    .address-container
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+    .opening-container
+        display: grid
+        grid-template-columns: 1fr 1fr
+        align-content: center
+
+        h2
+            grid-column-start: 1
+            grid-column-end: 3
+
+.right
+    display: flex
+    flex-direction: column
+    
+    .price
+        margin-left: 2rem

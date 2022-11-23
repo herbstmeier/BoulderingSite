@@ -5,12 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './user-profile';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AboutComponent } from './Components/about/about.component';
+import { BouldersComponent } from './Components/boulders/boulders.component';
+import { UserComponent } from './Components/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserProfileComponent,
-    SidebarComponent
+    SidebarComponent,
+    AboutComponent,
+    BouldersComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

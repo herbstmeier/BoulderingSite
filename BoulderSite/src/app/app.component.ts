@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 
@@ -8,17 +8,13 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService) {}
 
   title = 'BoulderSite';
   public user$ = this.auth.user$;
-
-  ngOnInit() {
-    console.log(this.user$);
-  }
 
   login() {
     this.auth.loginWithRedirect();
