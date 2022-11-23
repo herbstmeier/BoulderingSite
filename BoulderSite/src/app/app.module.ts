@@ -3,16 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginButtonComponent } from './login-button';
-import { LogoutButtonComponent } from './logout-button';
 import { UserProfileComponent } from './user-profile';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginButtonComponent,
-    LogoutButtonComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

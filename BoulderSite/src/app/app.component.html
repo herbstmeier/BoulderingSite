@@ -1,4 +1,27 @@
-<app-login-button></app-login-button>
-<app-logout-button></app-logout-button>
-<app-user-profile></app-user-profile>
+<header>
+    <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="home-logo">
+        <span class="ltext">RED</span>
+        <div class="logo-circle"></div>
+        <span class="ltext">POINT</span>
+    </a>
+
+    <ng-container *ngIf="auth.isAuthenticated$ | async; then loggedIn; else loggedOut">
+    </ng-container>
+
+    <ng-template #loggedIn>
+        <a [routerLink]="['/account/']" routerLinkActive="router-link-active" ></a>
+
+        <button class="log-button" (click)="logout()">
+            Log out
+        </button>
+    </ng-template>
+
+    <ng-template #loggedOut>
+        <button class="log-button" (click)="login()">
+            Log in
+        </button>
+    </ng-template>
+</header>
+
+
 <router-outlet></router-outlet>
