@@ -1,16 +1,16 @@
-const mariadb = require('mariadb/callback');
-const dbConfig = require("../config/db.config.js");
+import { createConnection } from 'mariadb/callback';
+import { HOST, USER, PASSWORD } from "../config/db.config.js";
 
 // Create a new connection
-const connection = await mariadb.createConnection({
-    host: dbConfig.HOST,
-    user: dbConfig.USER,
-    password: dbConfig.PASSWORD,
+const connection = await createConnection({
+    host: HOST,
+    user: USER,
+    password: PASSWORD,
 });
 
 connection.connect(error => {
     if (error) throw error;
     console.log("Successfully connected to the database.");
-  });
-  
-  module.exports = connection;
+});
+
+export default connection;
