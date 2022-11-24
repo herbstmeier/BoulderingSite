@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { AboutComponent } from './Components/about/about.component';
 import { BouldersComponent } from './Components/boulders/boulders.component';
 import { UserComponent } from './Components/user/user.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,10 +17,10 @@ import { UserComponent } from './Components/user/user.component';
     SidebarComponent,
     AboutComponent,
     BouldersComponent,
-    UserComponent
-  ],
+    UserComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AuthModule.forRoot({
       domain: 'dev-0sdsnwcyj7vabquo.eu.auth0.com',
       clientId: 'MYrjbBmeu8WYRoS3U831DoKq6kQeVvEq'

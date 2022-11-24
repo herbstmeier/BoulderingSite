@@ -1,1 +1,5 @@
-<p>boulders works!</p>
+<div *ngFor="let boulder of boulders">
+    <p>{{ boulder.grade }}</p>
+</div>
+
+<h1>{{ currentBoulder.grade }}</h1>

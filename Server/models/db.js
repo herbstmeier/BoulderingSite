@@ -1,16 +1,13 @@
-import { createConnection } from 'mariadb/callback';
-import { HOST, USER, PASSWORD } from "../config/db.config.js";
+const mariadb = require('mariadb');
 
-// Create a new connection
-const connection = await createConnection({
-    host: HOST,
-    user: USER,
-    password: PASSWORD,
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    connectionLimit: 5
 });
 
-connection.connect(error => {
-    if (error) throw error;
-    console.log("Successfully connected to the database.");
-});
 
-export default connection;
+
+module.exports = pool;
