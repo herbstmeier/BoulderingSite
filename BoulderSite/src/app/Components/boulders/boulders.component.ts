@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Boulder } from 'src/app/models/boulder.model';
-import { BoulderService } from 'src/app/services/boulder.service';
+import { Boulder } from 'src/app/shared/models/boulder.model';
+import { BoulderService } from 'src/app/shared/services/boulder.service';
 
 @Component({
   selector: 'app-boulders',
@@ -9,22 +9,19 @@ import { BoulderService } from 'src/app/services/boulder.service';
 })
 export class BouldersComponent implements OnInit {
   boulders: Boulder[];
-  currentBoulder: Boulder;
+  selectedBoulder: Boulder;
 
-  constructor(private boulderService: BoulderService) {
+  constructor(
+    private boulderService: BoulderService) {
     this.boulders = new Array<Boulder>;
-    this.currentBoulder = new Boulder();
+    this.selectedBoulder = new Boulder();
   }
 
   ngOnInit() {
-    this.getBoulders();
+    this.getAllBoulders();
   }
 
-  getBoulders() {
-    this.boulderService.getAll().subscribe({
-      next: (data) => {
-        this.boulders = data;
-      }
-    });
+  getAllBoulders() {
+    this.boulderService.getAll().subscribe((data: Boulder[]) => this.boulders = data);
   }
 }

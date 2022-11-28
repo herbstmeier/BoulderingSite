@@ -2,11 +2,12 @@
 
 CREATE TABLE if not EXISTS `Users` (
     `userId` int AUTO_INCREMENT NOT NULL ,
-    `name` varchar(50)  NOT NULL ,
-    `email` varchar(50) NOT NULL ,
-    `password` varchar (50) NOT NULL,
+    `username` varchar(20)  NOT NULL ,
+    `encryptedPassword` binary (64) NOT NULL,
+    `salt` binary (16) not NULL,
     `picture` varchar(50)  NULL ,
-    `isSetter` bool NOT NULL,
+    `isSetter` bit NOT NULL,
+    `isAdmin` bit NOT NULL,
     PRIMARY KEY (
         `userId`
     )
@@ -14,64 +15,70 @@ CREATE TABLE if not EXISTS `Users` (
 
 CREATE TABLE if not EXISTS `Boulders` (
     `boulderId` int AUTO_INCREMENT NOT NULL ,
-    `grade` varchar(50)  NOT NULL ,
+    `setterId` int NOT NULL,
+    `grade` varchar(5)  NOT NULL ,
     `picture` varchar(50)  NULL ,
     PRIMARY KEY (
         `boulderId`
     )
 );
 
+CREATE TABLE if not EXISTS `Tags` (
+    `tagId` int AUTO_INCREMENT NOT NULL ,
+    `tagName` varchar(15) NOT NULL UNIQUE ,
+    PRIMARY KEY (
+        `tagId`
+    )
+);
+
+CREATE TABLE if not EXISTS `BouldersTags` (
+    `boulderId` int NOT NULL ,
+    `tagId` int not NULL
+);
+
 CREATE TABLE if not EXISTS `Climbs` (
     `userId` int  NOT NULL ,
     `boulderId` int  NOT NULL ,
-    `isFlash` bool  NOT NULL ,
-    `date` DateTime  NOT NULL 
-);
-
-CREATE TABLE if not EXISTS `Sets` (
-    `setterId` int  NOT NULL ,
-    `boulderId` int  NOT NULL ,
-    `date` DateTime  NOT NULL 
+    `isFlash` bit  NOT NULL ,
+    `dateClimbed` DateTime  NOT NULL 
 );
 
 CREATE TABLE if not EXISTS `Ratings` (
     `userId` int  NOT NULL ,
-    `boulderId` int  NOT NULL ,
-    `ratingType` int  NOT NULL 
+    `boulderId` int  NOT NULL
 );
 
 CREATE TABLE if not EXISTS `Comments` (
     `commentId` int AUTO_INCREMENT NOT NULL ,
     `userId` int  NOT NULL ,
     `boulderId` int  NOT NULL ,
-    `content` varchar(50)  NOT NULL ,
-    `date` DateTime  NOT NULL ,
+    `content` varchar(100)  NOT NULL ,
+    `dateCommented` DateTime  NOT NULL ,
     PRIMARY KEY (
         `commentId`
     )
 );
 
-ALTER TABLE `Climbs` ADD CONSTRAINT `fk_Climbs_userId` FOREIGN KEY(`userId`)
+ALTER TABLE `Boulders` ADD CONSTRAINT `fk_Boulders_setterId` FOREIGN KEY(`setterId`)
 REFERENCES `Users` (`userId`);
 
-ALTER TABLE `Climbs` ADD CONSTRAINT `fk_Climbs_boulderId` FOREIGN KEY(`boulderId`)
+ALTER TABLE `BouldersTags` ADD CONSTRAINT `fk_BouldersTags_boulderId` FOREIGN KEY(`boulderId`)
 REFERENCES `Boulders` (`boulderId`);
+ALTER TABLE `BouldersTags` ADD CONSTRAINT `fk_BouldersTags_tagId` FOREIGN KEY(`tagId`)
+REFERENCES `Tags` (`tagId`);
 
-ALTER TABLE `Sets` ADD CONSTRAINT `fk_Sets_setterId` FOREIGN KEY(`setterId`)
-REFERENCES `Users` (`UserId`);
-
-ALTER TABLE `Sets` ADD CONSTRAINT `fk_Sets_boulderId` FOREIGN KEY(`boulderId`)
+ALTER TABLE `Climbs` ADD CONSTRAINT `fk_Climbs_userId` FOREIGN KEY(`userId`)
+REFERENCES `Users` (`userId`);
+ALTER TABLE `Climbs` ADD CONSTRAINT `fk_Climbs_boulderId` FOREIGN KEY(`boulderId`)
 REFERENCES `Boulders` (`boulderId`);
 
 ALTER TABLE `Ratings` ADD CONSTRAINT `fk_Ratings_userId` FOREIGN KEY(`userId`)
 REFERENCES `Users` (`userId`);
-
 ALTER TABLE `Ratings` ADD CONSTRAINT `fk_Ratings_boulderId` FOREIGN KEY(`boulderId`)
 REFERENCES `Boulders` (`boulderId`);
 
 ALTER TABLE `Comments` ADD CONSTRAINT `fk_Comments_userId` FOREIGN KEY(`userId`)
 REFERENCES `Users` (`userId`);
-
 ALTER TABLE `Comments` ADD CONSTRAINT `fk_Comments_boulderId` FOREIGN KEY(`boulderId`)
 REFERENCES `Boulders` (`boulderId`);
 

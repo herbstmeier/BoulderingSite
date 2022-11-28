@@ -1,33 +1,37 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AuthModule } from '@auth0/auth0-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserProfileComponent } from './user-profile';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AboutComponent } from './Components/about/about.component';
 import { BouldersComponent } from './Components/boulders/boulders.component';
 import { UserComponent } from './Components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './Components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './Components/register/register.component';
+import { httpInterceptorProviders } from './shared/interceptors';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserProfileComponent,
     SidebarComponent,
     AboutComponent,
     BouldersComponent,
-    UserComponent],
+    UserComponent,
+    LoginComponent,
+    RegisterComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AuthModule.forRoot({
-      domain: 'dev-0sdsnwcyj7vabquo.eu.auth0.com',
-      clientId: 'MYrjbBmeu8WYRoS3U831DoKq6kQeVvEq'
-    }),
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,10 @@
+<p>sidebar works!</p>
+
+<a [routerLink]="['/boulders']" routerLinkActive="router-link-active" ></a>
+
+<button *ngIf="this.userService.isLoggedIn()" (click)="submitLogout()">logout</button>
+
+<a *ngIf="!this.userService.isLoggedIn()" href="login">login</a>
+<a *ngIf="!this.userService.isLoggedIn()" href="register">register</a>
+
+<a *ngIf="this.userService.isLoggedIn()" [routerLink]="['user/', this.userService.getUserId()]" routerLinkActive="router-link-active" >User</a>
