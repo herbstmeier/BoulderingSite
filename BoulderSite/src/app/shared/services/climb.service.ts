@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Climb } from '../models/climb.model';
 
-const baseUrl = 'http://localhost:4200/climbs';
+const baseUrl = 'http://localhost:9000/api/climbs';
 
 @Injectable({
   providedIn: 'root'

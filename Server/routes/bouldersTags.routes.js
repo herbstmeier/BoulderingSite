@@ -54,3 +54,5 @@ router.delete('/', async function deleteConn(req, res) {
         res.status(400).send(error.message);
     }
 });
+
+module.exports = router;

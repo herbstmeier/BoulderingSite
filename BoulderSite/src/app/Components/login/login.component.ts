@@ -27,7 +27,6 @@ export class LoginComponent {
 
     this.userService.login(user).subscribe({
       next: (data: { token: string, id: number, expiresIn: number }) => {
-        console.log(data);
         if (data.token) {
           this.userService.setLoggedIn(data);
           this.router.navigateByUrl('');

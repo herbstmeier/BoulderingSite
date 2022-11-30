@@ -10,13 +10,13 @@ const dotenv = require('dotenv')
 dotenv.config({ path: '.env-local' })
 
 const _environment = process.env.ENVIRONMENT || 'develop';
-const _port = 4200;
+const _port = 9000;
 const _app_folder = 'dist/boulder-site';
 
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:4201",
+    origin: "http://localhost:4200",
     credentials: true
 };
 app.use(cors(corsOptions));
@@ -34,6 +34,8 @@ const bouldersTagsRouter = require('./routes/bouldersTags.routes');
 const climbRouter = require('./routes/climb.routes');
 const ratingRouter = require('./routes/rating.routes');
 const commentRouter = require('./routes/comment.routes');
+const imageRouter = require('./routes/imageUpload.routes');
+const imageServe = require('./routes/imageServe.routes');
 app.use('/api/users', userRouter);
 app.use('/api/tags', tagRouter);
 app.use('/api/boulders', boulderRouter);
@@ -41,6 +43,8 @@ app.use('/api/boulderstags', bouldersTagsRouter);
 app.use('/api/climbs', climbRouter);
 app.use('/api/ratings', ratingRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/images', imageRouter);
+app.use('/storage/img', imageServe);
 
 if (_environment === 'production') {
     // ---- LIMIT FOR TOO MANY CONNECTIONS ---- //
@@ -73,7 +77,7 @@ if (_environment === 'production') {
     });
 
     // ---- SERVE STATIC FILES ---- //
-    app.get('*.*', express.static(_app_folder, { maxAge: '1y' }));
+    app.get('*.*', express.static(_app_folder));
 
     // ---- SERVE APLICATION PATHS ---- //
     app.all('*', function (req, res) {

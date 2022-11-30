@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthUserModel, User } from '../models/user.model';
 import * as moment from 'moment';
 
-const baseUrl = 'http://localhost:4200/api/users';
+const baseUrl = 'http://localhost:9000/api/users';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Boulder, CreateBoulderModel } from '../models/boulder.model';
 
-const baseUrl = 'http://localhost:4200/boulders';
+const baseUrl = 'http://localhost:9000/api/boulders';
 
 @Injectable({
   providedIn: 'root'
