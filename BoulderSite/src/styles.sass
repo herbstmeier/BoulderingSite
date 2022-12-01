@@ -1,58 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
-@font-face
-    font-family: 'Noto Sans'
-    src: url('assets/fonts/NotoSans-Light.woff2') format('woff2')
-    font-weight: 300
-    font-style: normal
+@use 'src/assets/styles/variables' as var
 
 @font-face
-    font-family: 'Noto Sans'
-    src: url('assets/fonts/NotoSans-Bold.woff2') format('woff2')
+    font-family: 'Anek Devanagari'
+    src: url('assets/fonts/AnekDevanagari-ExtraLight.ttf')
+    font-weight: normal
+    font-style: normal
+@font-face
+    font-family: 'Anek Devanagari'
+    src: url('assets/fonts/AnekDevanagari-Regular.ttf')
     font-weight: bold
     font-style: normal
 
-@font-face
-    font-family: 'Noto Sans'
-    src: url('assets/fonts/NotoSans-Regular.woff2') format('woff2')
-    font-weight: normal
-    font-style: normal
-
-.ltext
-    font-size: 5rem
-
-.mtext
-    font-size: 1.5rem
-
-.stext
-    font-size: 1rem
+html,body
+    width: 100vw
+    height: 100vh
 
 body
     margin: 0
-    font-family: Noto Sans
-    background-color: white
+    font-family: Anek Devanagari
+    background: linear-gradient(90deg, var.$background1 -200%, var.$background2 200%)
+    //background-image: url('assets/img/background.jpg')
     color: black
 
+@media only screen and (min-width: 2500px)
+    body
+        background-size: cover
+
 .main-container
-    display: grid
-    grid-template-columns: 15% auto 25%
-    grid-template-rows: 75% 25%
-    grid-template-areas: "left main right""left bottom right"
+    display: flex
+    flex-direction: column
 
-    .left, .main, .right, .bottom
-        padding: 2rem 4rem
-
-    .left
-        grid-area: left
-        border-right: 1px solid grey
-
-    .main
-        grid-area: main
-        border-bottom: 1px solid grey
-
-    .right
-        grid-area: right
-        border-left: 1px solid grey
-
-    .bottom
-        grid-area: bottom
+.button-round
+    width: 5rem
+    height: 5rem

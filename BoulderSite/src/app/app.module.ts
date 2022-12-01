@@ -12,6 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './Components/register/register.component';
 import { httpInterceptorProviders } from './shared/interceptors';
 import { RouterModule } from '@angular/router';
+import { HomeComponent } from './Components/home/home.component';
+import { BoulderDetailsComponent } from './Components/boulders/boulder-details/boulder-details.component';
+import { BoulderCreateComponent } from './Components/boulders/boulder-create/boulder-create.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { RouterModule } from '@angular/router';
     BouldersComponent,
     UserComponent,
     LoginComponent,
-    RegisterComponent],
+    RegisterComponent,
+    HomeComponent,
+    BoulderDetailsComponent,
+    BoulderCreateComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

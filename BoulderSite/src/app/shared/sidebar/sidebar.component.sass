@@ -1,0 +1,71 @@
+@use 'src/assets/styles/variables' as var
+
+$grid-gap: 5vw
+$item-width: calc((100vw - 2*$grid-gap) / 6)
+
+
+.sidebar-container
+    position: sticky
+    width: 100%
+    background-color: rgba(0, 0, 0, 0.5)
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: $grid-gap
+    margin-bottom: 2rem
+    &::before
+        content: ''
+        height: 3px
+        width: $item-width
+        position: absolute
+        bottom: 0
+        background-color: var.$accent
+        transition: all 0.2s ease-in-out
+    &.sel-0::before
+        width: calc( 2 * $item-width )
+        left: 0%
+    &.sel-1::before
+        left: calc( 2 * $item-width + $grid-gap )
+    &.sel-2::before
+        left: 50%
+    &.sel-3::before
+        left: calc( 4 * $item-width + 2 * $grid-gap )
+    &.sel-4::before
+        left: calc( 5 * $item-width + 2 * $grid-gap )
+    
+    >div:not(:first-child)
+        display: grid
+        grid-template-columns: 1fr 1fr
+        justify-items: center
+
+.menu-item
+    width: 100%
+    text-align: center
+    background-color: rgba(255, 255, 255, 0)
+    transition: all 0.1s ease-in-out
+
+    a
+        text-decoration: none
+        color: white
+        display: flex
+        justify-content: center
+        align-items: center
+        height: 100%
+        font-weight: bold
+
+        .link-text
+            height: calc(var.$medium - 0.1em)
+
+        .logo
+            max-height: 3rem
+            margin: 0.5rem 0
+            &.logo-black
+                display: none
+
+    &:hover
+        background-color: rgba(255, 255, 255, 0.5)
+        a
+            color: black
+            .logo-black
+                display: block
+            .logo-white
+                display: none

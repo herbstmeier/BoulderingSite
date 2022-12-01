@@ -17,6 +17,7 @@ CREATE TABLE if not EXISTS `Boulders` (
     `boulderId` int AUTO_INCREMENT NOT NULL ,
     `setterId` int NOT NULL,
     `grade` varchar(5)  NOT NULL ,
+    `colorId` int NOT NULL , 
     `picture` varchar(50)  NULL ,
     PRIMARY KEY (
         `boulderId`
@@ -34,6 +35,15 @@ CREATE TABLE if not EXISTS `Tags` (
 CREATE TABLE if not EXISTS `BouldersTags` (
     `boulderId` int NOT NULL ,
     `tagId` int not NULL
+);
+
+CREATE TABLE if not EXISTS `Colors` (
+    `colorId` int AUTO_INCREMENT not NULL ,
+    `colorName` VARCHAR(15) not NULL UNIQUE,
+    `hexCode` CHAR(6) UNIQUE,
+    PRIMARY KEY (
+        `colorId`
+    )
 );
 
 CREATE TABLE if not EXISTS `Climbs` (
@@ -61,6 +71,8 @@ CREATE TABLE if not EXISTS `Comments` (
 
 ALTER TABLE `Boulders` ADD CONSTRAINT `fk_Boulders_setterId` FOREIGN KEY(`setterId`)
 REFERENCES `Users` (`userId`);
+ALTER TABLE `Boulders` ADD CONSTRAINT `fk_Boulders_colorId` FOREIGN KEY(`colorId`)
+REFERENCES `Colors` (`colorId`);
 
 ALTER TABLE `BouldersTags` ADD CONSTRAINT `fk_BouldersTags_boulderId` FOREIGN KEY(`boulderId`)
 REFERENCES `Boulders` (`boulderId`);
@@ -81,4 +93,3 @@ ALTER TABLE `Comments` ADD CONSTRAINT `fk_Comments_userId` FOREIGN KEY(`userId`)
 REFERENCES `Users` (`userId`);
 ALTER TABLE `Comments` ADD CONSTRAINT `fk_Comments_boulderId` FOREIGN KEY(`boulderId`)
 REFERENCES `Boulders` (`boulderId`);
-

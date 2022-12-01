@@ -23,7 +23,7 @@ router.post("/", async function create(req, res) {
 });
 
 // GET CLIMBS BY BOULDER ID
-router.get("/boulder/:id", async function getByBoulder(req, res) {
+router.get("/boulders/:id", async function getByBoulder(req, res) {
     // CHECKING AUTHORIZATION = LOGGED IN
     try {
         validateToken(req.headers.authorization);
@@ -41,7 +41,7 @@ router.get("/boulder/:id", async function getByBoulder(req, res) {
 });
 
 // GET CLIMBS BY USER ID
-router.get("/user/:id", async function getByUser(req, res) {
+router.get("/users/:id", async function getByUser(req, res) {
     // CHECKING AUTHORIZATION = LOGGED IN
     try {
         validateToken(req.headers.authorization);
@@ -80,7 +80,7 @@ router.delete("/", async function deleteClimb(req, res) {
 });
 
 // DELETE CLIMBS BY BOULDER ID
-router.delete("/boulder/:id", async function deleteByBoulder(req, res) {
+router.delete("/boulders/:id", async function deleteByBoulder(req, res) {
     // CHECKING AUTHORIZATION = ADMIN or SETTER
     try {
         const token = validateToken(req.headers.authorization);
@@ -99,8 +99,8 @@ router.delete("/boulder/:id", async function deleteByBoulder(req, res) {
     }
 });
 
-// DELETE CLIMBS BY USER
-router.delete("/user/:id", async function deleteByUser(req, res) {
+// DELETE CLIMBS BY USER ID
+router.delete("/users/:id", async function deleteByUser(req, res) {
     // CHECKING AUTHORIZATION = USER ID MATCH
     try {
         const token = validateToken(req.headers.authorization);

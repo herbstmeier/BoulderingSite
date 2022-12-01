@@ -1,4 +1,12 @@
-<div class="right">
+<div class="boulder-container">
+    <a *ngIf="this.userService.getUserAuthLevel() > 1" [routerLink]="['/boulders/new']">
+        <svg class="button-round">
+            <circle cx="2.5rem" cy="2.5rem" r="2.5rem" style="fill: white;fill-opacity: 0.4;"/>
+            <line x1="1rem" y1="2.5rem" x2="4rem" y2="2.5rem" style="stroke:#464646;stroke-width:0.5rem" />
+            <line x1="2.5rem" y1="1rem" x2="2.5rem" y2="4rem" style="stroke:#464646;stroke-width:0.5rem" />
+        </svg>
+    </a>
+
     <div *ngFor="let boulder of boulders">
         <p>{{ boulder.grade }}</p>
     </div>

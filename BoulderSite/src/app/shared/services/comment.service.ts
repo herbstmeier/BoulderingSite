@@ -13,30 +13,26 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   create(data: any) {
-    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe();
   }
 
-  getByBoulder(id: any): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${baseUrl}/boulder/${id}`);
+  getByBoulder(id: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${baseUrl}/boulders/${id}`);
   }
 
-  update(id: any, data: any) {
-    this.http.put(`${baseUrl}/${id}`, data, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+  update(id: number, data: any) {
+    this.http.put(`${baseUrl}/${id}`, data, { responseType: 'text' }).subscribe();
   }
 
-  delete(id: any) {
-    this.http.delete(`${baseUrl}/${id}`, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+  delete(id: number) {
+    this.http.delete(`${baseUrl}/${id}`, { responseType: 'text' }).subscribe();
   }
 
-  deleteByBoulder(id: any) {
-    this.http.delete(`${baseUrl}/boulder/${id}`, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+  deleteByBoulder(id: number) {
+    this.http.delete(`${baseUrl}/boulders/${id}`, { responseType: 'text' }).subscribe();
+  }
+
+  deleteByUser(id: number) {
+    this.http.delete(`${baseUrl}/users/${id}`, { responseType: 'text' }).subscribe();
   }
 }

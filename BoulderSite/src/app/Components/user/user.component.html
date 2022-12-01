@@ -5,6 +5,6 @@
 
 <button (click)="deleteUser()">delete user</button>
 <img class="user-image" [src]="imageSrc" alt="profile picture">
-<input id="imageInput" type="file" (change)="uploadImage($event)">
+<input id="imageInput" type="file" (input)="uploadImage($event)">
 
 <button (click)="deleteImage()">delete image</button>

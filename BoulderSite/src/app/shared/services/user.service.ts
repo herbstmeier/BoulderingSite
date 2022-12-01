@@ -62,17 +62,19 @@ export class UserService {
     });
   }
 
-  public setLoggedIn(authResult: { token: string, id: number, expiresIn: number }) {
+  public setLoggedIn(authResult: { token: string, id: number, authLevel: number, expiresIn: number }) {
     const expiresAt = moment().add(authResult.expiresIn, 'second');
     sessionStorage.setItem('token', authResult.token);
     sessionStorage.setItem('user_id', authResult.id.toString());
+    sessionStorage.setItem('auth_level', authResult.authLevel.toString());
     sessionStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
   public setLoggedOut() {
     sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user_id')
-    sessionStorage.removeItem('expires_at')
+    sessionStorage.removeItem('user_id');
+    sessionStorage.removeItem('auth_level');
+    sessionStorage.removeItem('expires_at');
     console.log('logged out.');
   }
 
@@ -90,6 +92,15 @@ export class UserService {
     const localId: string | null = sessionStorage.getItem('user_id');
     if (localId) {
       return Number.parseInt(localId);
+    } else {
+      return 0;
+    }
+  }
+
+  public getUserAuthLevel(): number {
+    const localAuth: string | null = sessionStorage.getItem('auth_level');
+    if (localAuth) {
+      return Number.parseInt(localAuth);
     } else {
       return 0;
     }

@@ -26,7 +26,7 @@ export class LoginComponent {
     const user = new AuthUserModel(username, password);
 
     this.userService.login(user).subscribe({
-      next: (data: { token: string, id: number, expiresIn: number }) => {
+      next: (data: { token: string, id: number, authLevel: number, expiresIn: number }) => {
         if (data.token) {
           this.userService.setLoggedIn(data);
           this.router.navigateByUrl('');

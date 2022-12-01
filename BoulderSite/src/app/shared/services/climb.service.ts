@@ -13,34 +13,26 @@ export class ClimbService {
   constructor(private http: HttpClient) { }
 
   create(data: any) {
-    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe();
   }
 
-  getByBoulder(id: any): Observable<Climb[]> {
+  getByBoulder(id: number): Observable<Climb[]> {
     return this.http.get<Climb[]>(`${baseUrl}/boulder/${id}`);
   }
 
-  getByUser(id: any): Observable<Climb[]> {
+  getByUser(id: number): Observable<Climb[]> {
     return this.http.get<Climb[]>(`${baseUrl}/user/${id}`);
   }
 
-  delete(uid: any, bid: any) {
-    this.http.delete(baseUrl, { body: { uid, bid }, responseType: 'text' }).subscribe({
-      complete() { }
-    });
+  delete(userId: number, boulderId: number) {
+    this.http.delete(baseUrl, { body: { userId, boulderId }, responseType: 'text' }).subscribe();
   }
 
-  deleteByBoulder(id: any) {
-    this.http.delete(`${baseUrl}/boulder/${id}`, { responseType: 'text' }).subscribe({
-      complete() { }
-    })
+  deleteByBoulder(id: number) {
+    this.http.delete(`${baseUrl}/boulder/${id}`, { responseType: 'text' }).subscribe();
   }
 
-  deleteByUser(id: any) {
-    this.http.delete(`${baseUrl}/user/${id}`, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+  deleteByUser(id: number) {
+    this.http.delete(`${baseUrl}/user/${id}`, { responseType: 'text' }).subscribe();
   }
 }

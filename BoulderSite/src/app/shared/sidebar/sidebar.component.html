@@ -1,8 +1,42 @@
-<a [routerLink]="['/boulders']" routerLinkActive="router-link-active" ></a>
+<div class="sidebar-container mtext" [ngClass]="'sel-'+selectedPage.toString()">
+    <div class="menu-item">
+        <a [routerLink]="['']" routerLinkActive="router-link-active">
+            <img class="logo logo-black" src="assets/img/logo.png" alt="logo">
+            <img class="logo logo-white" src="assets/img/logo_white.png" alt="logo">
+        </a>
+    </div>
 
-<button *ngIf="this.userService.isLoggedIn()" (click)="submitLogout()">logout</button>
+    <div>
+        <div class="menu-item">
+            <a [routerLink]="['about']" routerLinkActive="router-link-active">
+                <div class="link-text">ABOUT</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a [routerLink]="['boulders']" routerLinkActive="router-link-active">
+                <div class="link-text">BOULDERS</div>
+            </a>
+        </div>
+    </div>
 
-<a *ngIf="!this.userService.isLoggedIn()" href="login">login</a>
-<a *ngIf="!this.userService.isLoggedIn()" href="register">register</a>
+    <div>
+        <div class="menu-item">
+            <a *ngIf="!this.userService.isLoggedIn()" [routerLink]="['register']">
+                <div class="link-text">REGISTER</div>
+            </a>
+            <a *ngIf="this.userService.isLoggedIn()" [routerLink]="['user/', this.userService.getUserId()]"
+                routerLinkActive="router-link-active">
+                <div class="link-text">USER</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a *ngIf="!this.userService.isLoggedIn()" [routerLink]="['login']">
+                <div class="link-text">LOGIN</div>
+            </a>
+            <a *ngIf="this.userService.isLoggedIn()" (click)="submitLogout()" [routerLink]="['']">
+                <div class="link-text">LOGOUT</div>
+            </a>
+        </div>
+    </div>
 
-<a *ngIf="this.userService.isLoggedIn()" [routerLink]="['user/', this.userService.getUserId()]" routerLinkActive="router-link-active" >User</a>
+</div>

@@ -23,7 +23,7 @@ router.post("/", async function create(req, res) {
 });
 
 // GET RATING BY BOULDER ID
-router.get("/boulder/:id", async function getByBoulder(req, res) {
+router.get("/boulders/:id", async function getByBoulder(req, res) {
     try {
         const rows = await pool.query('select * from ratings where boulderId=?', req.params.id);
         res.status(200).json(rows);
@@ -54,7 +54,7 @@ router.delete("/", async function deleteRating(req, res) {
 });
 
 // DELETE RATING BY BOULDER ID
-router.delete("/boulder/:id", async function deleteByBoulder(req, res) {
+router.delete("/boulders/:id", async function deleteByBoulder(req, res) {
     // CHECKING AUTHORIZATION = ADMIN or SETTER
     try {
         const token = validateToken(req.headers.authorization);
@@ -67,6 +67,25 @@ router.delete("/boulder/:id", async function deleteByBoulder(req, res) {
 
     try {
         const result = await pool.query('delete from ratings where boulderId=?', req.params.id);
+        res.sendStatus(200);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
+// DELETE CLIMBS BY USER ID
+router.delete("/users/:id", async function deleteByUser(req, res) {
+    // CHECKING AUTHORIZATION = USER ID MATCH
+    try {
+        const token = validateToken(req.headers.authorization);
+        if (token.sub != userId) throw new Error('unauthorized request.');
+    } catch (error) {
+        res.status(401).send(error.message);
+        return;
+    }
+
+    try {
+        const result = await pool.query('delete from ratings where userId=?', id);
         res.sendStatus(200);
     } catch (error) {
         res.status(400).send(error.message);

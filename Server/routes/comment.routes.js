@@ -23,7 +23,7 @@ router.post("/", async function create(req, res) {
 });
 
 // GET COMMENT BY BOULDER ID
-router.get("/boulder/:id", async function getByBoulder(req, res) {
+router.get("/boulders/:id", async function getByBoulder(req, res) {
     // CHECKING AUTHORIZATION = LOGGED IN
     try {
         validateToken(req.headers.authorization);
@@ -84,7 +84,7 @@ router.delete("/:id", async function deleteComment(req, res) {
 });
 
 // DELETE COMMENTS BY BOULDER ID
-router.delete("/boulder/:id", async function deleteByBoulder(req, res) {
+router.delete("/boulders/:id", async function deleteByBoulder(req, res) {
     // CHECKING AUTHORIZATION = ADMIN
     try {
         const token = validateToken(req.headers.authorization);
@@ -97,6 +97,25 @@ router.delete("/boulder/:id", async function deleteByBoulder(req, res) {
 
     try {
         const result = await pool.query('delete from comments where boulderId=?', req.params.id);
+        res.sendStatus(200);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
+// DELETE COMMENTS BY USER ID
+router.delete("/users/:id", async function deleteByUser(req, res) {
+    // CHECKING AUTHORIZATION = USER ID MATCH
+    try {
+        const token = validateToken(req.headers.authorization);
+        const authorId = await pool.query('select userId from comments where commentId=?', req.params.id);
+        if (token.sub != authorId) throw new Error('unauthorized request.');
+    } catch (error) {
+        res.status(401).send(error.message);
+    }
+
+    try {
+        const result = await pool.query('delete from comments where userId=?', req.params.id);
         res.sendStatus(200);
     } catch (error) {
         res.status(400).send(error.message);

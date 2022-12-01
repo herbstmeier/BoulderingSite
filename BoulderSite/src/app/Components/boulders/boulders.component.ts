@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Boulder } from 'src/app/shared/models/boulder.model';
 import { BoulderService } from 'src/app/shared/services/boulder.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-boulders',
@@ -12,7 +13,7 @@ export class BouldersComponent implements OnInit {
   selectedBoulder: Boulder;
 
   constructor(
-    private boulderService: BoulderService) {
+    private boulderService: BoulderService, public userService: UserService) {
     this.boulders = new Array<Boulder>;
     this.selectedBoulder = new Boulder();
   }

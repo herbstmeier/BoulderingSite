@@ -13,24 +13,22 @@ export class RatingService {
   constructor(private http: HttpClient) { }
 
   create(data: any) {
-    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe({
-      complete() { }
-    })
+    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe();
   }
 
-  getByBoulder(id: any): Observable<Rating[]> {
-    return this.http.get<Rating[]>(`${baseUrl}/boulder/${id}`);
+  getByBoulder(id: number): Observable<Rating[]> {
+    return this.http.get<Rating[]>(`${baseUrl}/boulders/${id}`);
   }
 
-  delete(userId: any, boulderId: any) {
-    this.http.delete(baseUrl, { body: { userId, boulderId }, responseType: 'text' }).subscribe({
-      complete() { }
-    })
+  delete(userId: number, boulderId: number) {
+    this.http.delete(baseUrl, { body: { userId, boulderId }, responseType: 'text' }).subscribe();
   }
 
-  deleteByBoulder(id: any) {
-    this.http.delete(`${baseUrl}/boulder/${id}`, { responseType: 'text' }).subscribe({
-      complete() { }
-    })
+  deleteByBoulder(id: number) {
+    this.http.delete(`${baseUrl}/boulders/${id}`, { responseType: 'text' }).subscribe();
+  }
+
+  deleteByUser(id: number) {
+    this.http.delete(`${baseUrl}/users/${id}`, { responseType: 'text' }).subscribe();
   }
 }
