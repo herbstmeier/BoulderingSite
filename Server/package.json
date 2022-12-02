@@ -1,6 +1,6 @@
 {
   "name": "bouldersite",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "a mockup bouldering gym website with interactive features",
   "main": "app.js",
   "scripts": {
