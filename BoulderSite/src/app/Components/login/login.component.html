@@ -1,7 +1,20 @@
-<form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
-    <label for="username">Username: </label>
-    <input type="text" formControlName="username" id="username">
-    <label for="password">Password:</label>
-    <input type="password" formControlName="password" id="password">
-    <button type="submit" [disabled]="!loginForm.valid">Submit</button>
-</form>
+<div class="login-container">
+    <form class="input-form card" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+        <div>
+            <label for="username">Username: </label>
+            <input type="text" formControlName="username" id="username">
+        </div>
+        <div>
+            <label for="current-password">Password:</label>
+            <div class="password-container">
+                <input class="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                    autocomplete="current-password" id="current-password">
+                <span class="show-pw" (click)="toggleShowPassword()">{{showPassword ? 'Hide' : 'Show'}}</span>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!loginForm.valid">Sign In</button>
+    </form>
+
+    <p class="explain stext">Thanks for wanting to take advantage of our interactive features.<br>You will be either logged in or registered as a
+        new user depending on wether or not the given username already exists.</p>
+</div>

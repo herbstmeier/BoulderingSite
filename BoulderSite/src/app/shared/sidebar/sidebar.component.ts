@@ -10,7 +10,7 @@ import { UserService } from '../services/user.service';
 export class SidebarComponent implements OnDestroy {
   selectedPage = 0;
   private routerSubscription
-  pagesLoggedOut: string[] = ['','about','boulders','register','login'];
+  pagesLoggedOut: string[] = ['','about','boulders','','login'];
   pagesLoggedIn: string[] = ['','about','boulders','user','logout'];
 
   constructor(

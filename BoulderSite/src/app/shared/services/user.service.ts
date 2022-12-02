@@ -14,14 +14,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Creates a new user in the database.
-   * @param userInfo Pass the `getInfo` method of a `User` object.
-   */
-  public create(userInfo: AuthUserModel): Observable<any> {
-    return this.http.post<AuthUserModel>(`${baseUrl}/register`, userInfo);
-  }
-
-  /**
    * Compares the input password with the encrypted password on the database.
    * @param loginData Email and Password
    * @returns An `Observable`

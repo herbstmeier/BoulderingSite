@@ -13,37 +13,24 @@ function genAuthLevel(set, adm) {
     }
 }
 
-// REGISTER
-router.post('/register', async function create(req, res) {
-    try {
-        const { username, password } = req.body;
-        const result = await pool.query('select username from users where username=?', username);
-        if (result.length) {
-            res.status(200).json({ registerError: 'username taken.' });
-        } else {
-            const salt = crypto.randomBytes(16);
-            const encryptedPassword = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512');
-            const data = await pool.query('insert into users (username,encryptedPassword,salt,isSetter,isAdmin) values (?,?,?,0,0)', [username, encryptedPassword, salt]);
-            const id = Number(data.insertId);
-            const token = createToken(id);
-            res.status(201).json({ token: token, id: id, authLevel: 1, expiresIn: Date.now() / 1000 + 3600 });
-        }
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-});
-
 // LOGIN
 router.post('/login', async function login(req, res) {
     try {
         const { username, password } = req.body;
         const rows = await pool.query('select userId,encryptedPassword,salt,isSetter,isAdmin from users where username=?', username);
         if (!rows.length) {
-            res.status(200).send(`bad username or password.`);
+            // register new user
+            const salt = crypto.randomBytes(16);
+            const encryptedPassword = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512');
+            const data = await pool.query('insert into users (username,encryptedPassword,salt,isSetter,isAdmin) values (?,?,?,0,0)', [username, encryptedPassword, salt]);
+            const id = Number(data.insertId);
+            const token = createToken(id);
+            res.status(201).json({ token: token, id: id, authLevel: 1, expiresIn: Date.now() / 1000 + 3600 });
         } else {
+            // login existing user
             const _key = crypto.pbkdf2Sync(password, rows[0].salt, 10000, 64, 'sha512');
             if (!crypto.timingSafeEqual(_key, rows[0].encryptedPassword)) {
-                res.status(200).send(`bad username or password.`);
+                res.status(200).send(`bad password.`);
             } else {
                 const token = createToken(rows[0].userId);
                 res.status(200).json({ token: token, id: rows[0].userId, authLevel: genAuthLevel(rows[0].isSetter, rows[0].isAdmin), expiresIn: Date.now() / 1000 + 3600 });

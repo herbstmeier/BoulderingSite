@@ -6,7 +6,6 @@ import { BoulderDetailsComponent } from './Components/boulders/boulder-details/b
 import { BouldersComponent } from './Components/boulders/boulders.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
-import { RegisterComponent } from './Components/register/register.component';
 import { UserComponent } from './Components/user/user.component';
 
 const routes: Routes = [
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'boulders/new', component: BoulderCreateComponent, pathMatch: 'full' },
   { path: 'boulders/:id', component: BoulderDetailsComponent },
   { path: 'user/:id', component: UserComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent }
 
 ];

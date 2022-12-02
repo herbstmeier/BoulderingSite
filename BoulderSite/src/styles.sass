@@ -4,7 +4,7 @@
 
 @font-face
     font-family: 'Anek Devanagari'
-    src: url('assets/fonts/AnekDevanagari-ExtraLight.ttf')
+    src: url('assets/fonts/AnekDevanagari-Light.ttf')
     font-weight: normal
     font-style: normal
 @font-face
@@ -31,7 +31,86 @@ body
 .main-container
     display: flex
     flex-direction: column
+    overflow: overlay
 
 .button-round
     width: 5rem
     height: 5rem
+
+.card
+    background-color: rgba(255, 255, 255, 0.5)
+    padding: 2rem
+    border-radius: 2rem
+    width: fit-content
+
+.input-form
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 1rem
+    margin: 0 auto
+    width: 50%
+
+    label
+        font-size: var.$medium
+
+    button
+        background-color: rgba(255, 255, 255, 0.5)
+        color: grey
+        border: none
+        padding: 1rem
+        font-size: var.$small
+        border: solid 3px transparent
+        border-radius: 0.3rem
+        margin-top: 1rem
+        font-weight: bold
+        transition: all 0.1s ease-in-out
+
+    &.ng-valid button
+        color: black
+        background-color: rgba(255, 255, 255, 0.8)
+        cursor: pointer
+        &:hover
+            background-color: var.$accent
+            color: white
+
+    >div
+        display: flex
+        flex-direction: column
+        align-items: stretch
+        width: 100%
+
+        .password-container
+            position: relative
+            display: flex
+            flex-direction: column
+            align-items: stretch
+            input
+                width: inherit
+
+        input
+            font-size: var.$small
+            border: none
+            padding: 0.5rem 1rem
+            border-radius: 1rem
+            border: solid 2px transparent
+
+            &:focus
+                border-color: var.$accent
+
+        input.password
+            padding: 0.5rem 3rem 0.5rem 1rem
+        .show-pw
+            position: absolute
+            height: var.$medium
+            right: 0.5rem
+            top: 50%
+            transform: translate(0%,-50%)
+            font: inherit
+            color: rgba(0, 0, 0, 0.8)
+            margin: auto
+            cursor: default
+            user-select: none
+            font-weight: bold
+            &:hover
+                color: var.$accent

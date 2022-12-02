@@ -9,7 +9,6 @@ import { UserComponent } from './Components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './Components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './Components/register/register.component';
 import { httpInterceptorProviders } from './shared/interceptors';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
@@ -24,7 +23,6 @@ import { BoulderCreateComponent } from './Components/boulders/boulder-create/bou
     BouldersComponent,
     UserComponent,
     LoginComponent,
-    RegisterComponent,
     HomeComponent,
     BoulderDetailsComponent,
     BoulderCreateComponent],

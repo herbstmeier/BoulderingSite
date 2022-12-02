@@ -1,6 +1,6 @@
 @use 'src/assets/styles/variables' as var
 
-$grid-gap: 5vw
+$grid-gap: 0vw
 $item-width: calc((100vw - 2*$grid-gap) / 6)
 
 
@@ -36,6 +36,9 @@ $item-width: calc((100vw - 2*$grid-gap) / 6)
         display: grid
         grid-template-columns: 1fr 1fr
         justify-items: center
+
+        .login
+            grid-column-start: 2
 
 .menu-item
     width: 100%

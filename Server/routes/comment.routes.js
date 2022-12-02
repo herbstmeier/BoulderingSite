@@ -12,6 +12,7 @@ router.post("/", async function create(req, res) {
         if (token.sub != userId) throw 'unauthorized request.';
     } catch (error) {
         res.status(401).send(error.message);
+        return;
     }
 
     try {
@@ -29,6 +30,7 @@ router.get("/boulders/:id", async function getByBoulder(req, res) {
         validateToken(req.headers.authorization);
     } catch (error) {
         res.status(401).send(error.message);
+        return;
     }
 
     try {
@@ -52,6 +54,7 @@ router.put("/:id", async function update(req, res) {
         if (token.sub != authorId) throw new Error('unauthorized request.');
     } catch (error) {
         res.status(401).send(error.message);
+        return;
     }
 
     try {
@@ -73,6 +76,7 @@ router.delete("/:id", async function deleteComment(req, res) {
         if ((token.sub != authorId) && !row[0].isAdmin) throw new Error('unauthorized request.');
     } catch (error) {
         res.status(401).send(error.message);
+        return;
     }
 
     try {
@@ -112,6 +116,7 @@ router.delete("/users/:id", async function deleteByUser(req, res) {
         if (token.sub != authorId) throw new Error('unauthorized request.');
     } catch (error) {
         res.status(401).send(error.message);
+        return;
     }
 
     try {

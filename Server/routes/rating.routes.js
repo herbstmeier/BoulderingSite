@@ -1,5 +1,6 @@
 var router = require('express').Router();
 const pool = require('../db');
+const { validateToken } = require('./authToken');
 
 // POST RATING
 router.post("/", async function create(req, res) {
@@ -29,6 +30,7 @@ router.get("/boulders/:id", async function getByBoulder(req, res) {
         res.status(200).json(rows);
     } catch (error) {
         res.status(400).send(error.message);
+        return;
     }
 });
 

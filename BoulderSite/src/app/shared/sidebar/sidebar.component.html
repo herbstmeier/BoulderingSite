@@ -20,16 +20,14 @@
     </div>
 
     <div>
-        <div class="menu-item">
-            <a *ngIf="!this.userService.isLoggedIn()" [routerLink]="['register']">
-                <div class="link-text">REGISTER</div>
-            </a>
-            <a *ngIf="this.userService.isLoggedIn()" [routerLink]="['user/', this.userService.getUserId()]"
+        <div *ngIf="this.userService.isLoggedIn()" class="menu-item">
+            <a [routerLink]="['user/', this.userService.getUserId()]"
                 routerLinkActive="router-link-active">
                 <div class="link-text">USER</div>
             </a>
         </div>
-        <div class="menu-item">
+
+        <div class="menu-item login">
             <a *ngIf="!this.userService.isLoggedIn()" [routerLink]="['login']">
                 <div class="link-text">LOGIN</div>
             </a>

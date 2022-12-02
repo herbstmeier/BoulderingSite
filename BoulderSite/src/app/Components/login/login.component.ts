@@ -14,11 +14,16 @@ export class LoginComponent {
     username: ['', Validators.required],
     password: ['', Validators.required]
   })
+  showPassword: boolean = false;
 
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router) { }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   submitLogin() {
     const username = this.loginForm.value.username ? this.loginForm.value.username : '';

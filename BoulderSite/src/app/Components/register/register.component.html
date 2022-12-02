@@ -1,9 +1,0 @@
-<form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
-    <label for="username">Username: </label>
-    <input id="username" type="text" formControlName="username">
-    <label for="password">Password:</label>
-    <input type="password" formControlName="password" id="password">
-    <label for="passwordRepeat">Repeat Password: </label>
-    <input type="password" formControlName="passwordRepeat" id="passwordRepeat">
-    <button type="submit" [disabled]="!registerForm.valid">Submit</button>
-</form>
