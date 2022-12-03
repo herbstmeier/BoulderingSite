@@ -12,7 +12,7 @@ import { UserService } from '../../shared/services/user.service';
 export class LoginComponent {
   loginForm = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z!-@]*')]]
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]]
   })
   showPassword: boolean = false;
 
@@ -31,7 +31,7 @@ export class LoginComponent {
     const user = new AuthUserModel(username, password);
 
     this.userService.login(user).subscribe({
-      next: (data: { token: string, id: number, authLevel: number, expiresIn: number }) => {
+      next: (data: { token: string, id: number, username: string, authLevel: number, expiresIn: number }) => {
         if (data.token) {
           this.userService.setLoggedIn(data);
           this.router.navigateByUrl('');

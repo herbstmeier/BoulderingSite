@@ -3,7 +3,7 @@
 $grid-gap: 0vw
 $item-width: calc((100vw - 2*$grid-gap) / 6)
 
-@media only screen and (max-width: 900px)
+@media only screen and (max-width: 900px) and (orientation: portrait)
     div.sidebar-container
         display: flex
         &::before
@@ -68,10 +68,10 @@ $item-width: calc((100vw - 2*$grid-gap) / 6)
         font-weight: bold
 
         .link-text
-            height: 28px
+            height: calc( var.$small + 0.6vw )
 
         .logo
-            max-height: 3rem
+            max-height: 5vh
             margin: 0.5rem 0
             &.logo-black
                 display: none

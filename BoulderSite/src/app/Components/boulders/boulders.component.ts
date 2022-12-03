@@ -12,6 +12,8 @@ export class BouldersComponent implements OnInit {
   boulders: Boulder[];
   selectedBoulder: Boulder;
 
+  isExpandedView: boolean = false;
+
   constructor(
     private boulderService: BoulderService, public userService: UserService) {
     this.boulders = new Array<Boulder>;
@@ -24,5 +26,9 @@ export class BouldersComponent implements OnInit {
 
   getAllBoulders() {
     this.boulderService.getAll().subscribe((data: Boulder[]) => this.boulders = data);
+  }
+
+  toggleExpandedView() {
+    this.isExpandedView = !this.isExpandedView;
   }
 }

@@ -1,15 +1,38 @@
-<div class="user-container">
+<ng-template #notExist>
+    <div>
+        <p class="mtext">This user doesn't exist.</p>
+    </div>
+</ng-template>
+
+<div class="user-container" *ngIf="this.userExists;else notExist">
     <div class="card-container card">
         <div class="info-container">
             <div class="image-container">
-                <div class="action-overlay" [ngClass]="{hidden: this.id != this.userService.getUserId()}">
+                <div class="action-overlay" [ngClass]="{hidden: this.user.userId != this.userService.getUserId()}">
                     <div class="grid-container mtext">
-                        <div class="top" (click)="delete.click()">
-                            <button class="image-delete" (click)="deleteImage()" #delete>Delete</button>
+                        <div class="top" (click)="deleteImage()">
+                            <!-- <button class="image-delete" (click)="deleteImage()" #delete>Delete</button> -->
+                            <div class="svg-container">
+                                <svg class="icon" width="100%" height="100%" viewBox="0 0 100 100">
+                                    <path d="M35 15 L40 5 H60 L65 15" />
+                                    <path d="M10 15 H90" />
+                                    <path d="M20 25 V95 H80 V25" />
+                                    <path d="M35 30 V80" />
+                                    <path d="M50 30 V80" />
+                                    <path d="M65 30 V80" />
+                                </svg>
+                            </div>
                         </div>
                         <div class="bottom" (click)="upload.click()">
                             <input id="image-input" type="file" (input)="uploadImage($event)" #upload>
-                            <label class="input-text" for="image-input">Upload</label>
+                            <!-- <label class="input-text" for="image-input">Upload</label> -->
+                            <div class="svg-container">
+                                <svg class="icon" width="100%" height="100%" viewBox="0 0 100 100">
+                                    <path d="M50 75 V5" />
+                                    <path d="M25 30 L50 5 L75 30" />
+                                    <path d="M5 60 V95 H95 V60" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -20,31 +43,33 @@
         <div class="stats-container">
             <h2 class="mtext">Stats:</h2>
             <div class="stext">
-                <span>Tops:</span>
-                <span>{{this.climbs.length}}</span>
+                <span class="cat">Tops:</span>
+                <span class="val">{{this.climbs.length}}</span>
 
-                <span>% Flash:</span>
-                <span>{{this.flashPercent}}</span>
+                <span class="cat" >% Flash:</span>
+                <span class="val">{{this.flashPercent || '-'}}</span>
             </div>
         </div>
     </div>
 
-    <div class="card-container card" *ngIf="this.id == this.userService.getUserId()">
+    <div class="card-container" *ngIf="this.user.userId == this.userService.getUserId()">
         <div class="action-selector">
-            <h2 class="mtext">Actions:</h2>
+            <!-- <h2 class="mtext">Actions:</h2> -->
             <div class="stext">
                 <button class="accent-button" (click)="upload.click()">Upload Profile Picture</button>
                 <button class="accent-button" (click)="deleteImage()">Delete Profile Picture</button>
 
-                <button class="accent-button" [ngClass]="{selected: selectedAction==1}" (click)="setSelectedAction(1)">Update
+                <button class="accent-button" [ngClass]="{selected: selectedAction==1}"
+                    (click)="setSelectedAction(1)">Update
                     Password</button>
-                <button class="accent-button" [ngClass]="{selected: selectedAction==1}" (click)="setSelectedAction(2)">Delete Account</button>
+                <button class="accent-button" [ngClass]="{selected: selectedAction==1}"
+                    (click)="setSelectedAction(2)">Delete Account</button>
             </div>
         </div>
 
-        <div class="action-container">
+        <div class="action-container" *ngIf="selectedAction!=0" >
             <form class="input-form" [formGroup]="updatePwForm" (ngSubmit)="updateUserPassword()"
-                *ngIf="selectedAction==1">
+                *ngIf="selectedAction==1" #action>
                 <div>
                     <label for="new-password">New Password:</label>
                     <div class="password-container">
@@ -61,12 +86,11 @@
                         Eight or more characters with a mix of lowercase & uppercase letters, numbers and symbols.
                     </div>
                 </div>
-                <button type="submit">Update</button>
+                <button type="submit" [disabled]="!updatePwForm.valid">Update</button>
             </form>
-
             <p class="mtext" *ngIf="selectedAction==2">Are you sure?</p>
-            <button class="accent-button" (click)="deleteUser()" *ngIf="selectedAction==2">Delete your Account</button>
+            <button class="accent-button" (click)="deleteUser()" *ngIf="selectedAction==2" #action>Delete your
+                Account</button>
         </div>
-
     </div>
 </div>

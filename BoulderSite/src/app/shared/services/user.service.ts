@@ -23,7 +23,11 @@ export class UserService {
   }
 
   public getById(id: number): Observable<User> {
-    return this.http.get<User>(`${baseUrl}/${id}`);
+    return this.http.get<User>(`${baseUrl}/id/${id}`);
+  }
+
+  public getByUsername(username: string): Observable<User> {
+    return this.http.get<User>(`${baseUrl}/${username}`);
   }
 
   public getAll(): Observable<User[]> {
@@ -54,10 +58,11 @@ export class UserService {
     });
   }
 
-  public setLoggedIn(authResult: { token: string, id: number, authLevel: number, expiresIn: number }) {
+  public setLoggedIn(authResult: { token: string, id: number, username: string, authLevel: number, expiresIn: number }) {
     const expiresAt = moment().add(authResult.expiresIn, 'second');
     sessionStorage.setItem('token', authResult.token);
     sessionStorage.setItem('user_id', authResult.id.toString());
+    sessionStorage.setItem('username', authResult.username.toString());
     sessionStorage.setItem('auth_level', authResult.authLevel.toString());
     sessionStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
@@ -65,6 +70,7 @@ export class UserService {
   public setLoggedOut() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user_id');
+    sessionStorage.removeItem('username');
     sessionStorage.removeItem('auth_level');
     sessionStorage.removeItem('expires_at');
     console.log('logged out.');
@@ -87,6 +93,11 @@ export class UserService {
     } else {
       return 0;
     }
+  }
+
+  public getUsername(): string {
+    const localName: string | null = sessionStorage.getItem('username');
+    return localName || '';
   }
 
   public getUserAuthLevel(): number {

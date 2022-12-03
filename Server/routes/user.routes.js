@@ -17,25 +17,25 @@ function genAuthLevel(set, adm) {
 router.post('/login', async function login(req, res) {
     try {
         const { username, password } = req.body;
+        var id = 0;
         const rows = await pool.query('select userId,encryptedPassword,salt,isSetter,isAdmin from users where username=?', username);
         if (!rows.length) {
             // register new user
             const salt = crypto.randomBytes(16);
             const encryptedPassword = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512');
             const data = await pool.query('insert into users (username,encryptedPassword,salt,isSetter,isAdmin) values (?,?,?,0,0)', [username, encryptedPassword, salt]);
-            const id = Number(data.insertId);
-            const token = createToken(id);
-            res.status(201).json({ token: token, id: id, authLevel: 1, expiresIn: Date.now() / 1000 + 3600 });
+            id = Number(data.insertId);
         } else {
             // login existing user
             const _key = crypto.pbkdf2Sync(password, rows[0].salt, 10000, 64, 'sha512');
             if (!crypto.timingSafeEqual(_key, rows[0].encryptedPassword)) {
                 res.status(200).send(`bad password.`);
-            } else {
-                const token = createToken(rows[0].userId);
-                res.status(200).json({ token: token, id: rows[0].userId, authLevel: genAuthLevel(rows[0].isSetter, rows[0].isAdmin), expiresIn: Date.now() / 1000 + 3600 });
+                return;
             }
+            id = rows[0].userId;
         }
+        const token = createToken(id);
+        res.status(201).json({ token: token, id: id, username: username, authLevel: genAuthLevel(rows[0].isSetter || 0, rows[0].isAdmin || 0), expiresIn: Date.now() / 1000 + 3600 });
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -62,9 +62,19 @@ router.get('/', async function getAll(req, res) {
 })
 
 // GET USER BY ID
-router.get('/:id', async function getById(req, res) {
+router.get('id/:id', async function getById(req, res) {
     try {
         const rows = await pool.query('select userId,username,picture,isSetter,isAdmin from users where userId=?', req.params.id);
+        res.status(200).json(rows[0]);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
+// GET USER BY USERNAME
+router.get('/:username', async function getById(req, res) {
+    try {
+        const rows = await pool.query('select userId,username,picture,isSetter,isAdmin from users where username=?', req.params.username);
         res.status(200).json(rows[0]);
     } catch (error) {
         res.status(400).send(error.message);

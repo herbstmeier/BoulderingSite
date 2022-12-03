@@ -21,8 +21,7 @@ html,body
 body
     margin: 0
     font-family: Anek Devanagari
-    background: linear-gradient(90deg, var.$background1 -200%, var.$background2 200%)
-    //background-image: url('assets/img/background.jpg')
+    // background-image: url('assets/img/background.jpg')
     color: black
 
 @media only screen and (min-width: 2500px)
@@ -30,12 +29,26 @@ body
         background-size: cover
 
 @media only screen and (max-width: 900px)
-    .main-container
+    div.main-container
         > * >div:not(.sidebar-container)
             flex-wrap: wrap
 
 .hidden
     display: none
+
+.main-container
+    background: linear-gradient(135deg, var.$background1 0%, var.$background2 100%)
+    display: flex
+    flex-direction: column
+    overflow: overlay
+    > * >div:not(.sidebar-container)
+        padding: 0 10vw
+        margin: 10vh 0 2vh 0
+        display: flex
+        flex-direction: row
+        overflow: hidden
+        gap: 2rem
+        flex-wrap: nowrap
 
 .accent-button
     all: unset
@@ -44,34 +57,52 @@ body
     text-align: center
     font-size: var.$small
     padding: 1rem
-    background-color: rgba(255, 255, 255, 0.8)
-    border-radius: 0.3rem
-    border: solid 2px transparent
+    background-color: var.$trans-light
+    border-radius: 0.5rem
+    border: solid 2px black
     box-sizing: border-box
+    transition: all 0.1s ease-in-out
     &:hover
         color: white
         background-color: var.$accent
 
-.main-container
-    display: flex
-    flex-direction: column
-    overflow: overlay
-    > * >div:not(.sidebar-container)
-        margin-top: 7rem
-        display: flex
-        flex-direction: row
-        overflow: hidden
-        gap: 2rem
+.svg-container
+    height: calc(2vw + 2rem)
+    width: calc(2vw + 2rem)
+    user-select: none
 
-.button-round
-    width: 5rem
-    height: 5rem
+    .button-round
+        width: 100%
+        height: 100%
+        all: unset
+        cursor: pointer
+        transition: all 0.1s ease-in-out
+
+        *
+            transition: inherit
+        circle
+            fill: var.$trans-light
+            stroke: black
+            stroke-width: 3px
+        path
+            stroke: black
+            stroke-width: 7%
+            stroke-linecap: round
+            stroke-linejoin: round
+
+        &:hover
+            circle
+                fill: var.$trans-dark
+            path
+                stroke: white
 
 .card
-    background-color: rgba(255, 255, 255, 0.5)
+    background-color: var.$trans-light
     padding: 2rem
-    border-radius: 2rem
+    border-radius: 0.5rem
     width: fit-content
+    border: solid 2px black
+    height: fit-content
 
 .input-form
     display: flex
@@ -129,10 +160,9 @@ input.password
     padding: 0.5rem 3rem 0.5rem 1rem
 .show-pw
     position: absolute
-    height: 26px
     right: 0.5rem
     top: 50%
-    transform: translate(0%,-50%)
+    transform: translate(0%,-40%)
     font: inherit
     font-size: var.$small
     color: rgba(0, 0, 0, 0.8)

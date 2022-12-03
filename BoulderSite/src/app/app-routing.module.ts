@@ -18,7 +18,7 @@ const routes: Routes = [
       { path: ':id', component: BoulderDetailsComponent },
     ]
   },
-  { path: 'user/:id', component: UserComponent, canActivate: [UserGuard] },
+  { path: 'user/:username', component: UserComponent, canActivate: [UserGuard] },
   { path: 'login', component: LoginComponent }
 
 ];

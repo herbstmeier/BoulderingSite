@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { ClimbService } from 'src/app/shared/services/climb.service';
 import { CommentService } from 'src/app/shared/services/comment.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { RatingService } from 'src/app/shared/services/rating.service';
+import { ScrollService } from 'src/app/shared/services/scroll.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -17,7 +18,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 
 export class UserComponent implements OnInit, OnDestroy {
-  id: number = 0;
+  userExists: boolean = true;
   imageSrc: string = '';
   user: User = new User();
   climbs: Climb[] = new Array();
@@ -25,9 +26,15 @@ export class UserComponent implements OnInit, OnDestroy {
   selectedAction: number = 0;
   showPassword: boolean = false;
   updatePwForm = this.fb.group({
-    newPassword: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z!-@]*')]]
+    newPassword: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]]
   });
   routerSubscription?: Subscription;
+
+  @ViewChild('action') set action(element: any) {
+    if (element) {
+      this.scrollService.scrollToBottom();
+    }
+  }
 
   constructor(
     private commentService: CommentService,
@@ -37,12 +44,18 @@ export class UserComponent implements OnInit, OnDestroy {
     public imageService: ImageService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private scrollService: ScrollService) { }
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(p => {
-      this.id = Number.parseInt(p['id']);
+      const username = p['username'];
       // get user
-      this.userService.getById(this.id).subscribe((data: User) => {
+      this.userService.getByUsername(username).subscribe((data: User) => {
+        if (data == null) {
+          this.userExists = false;
+          return;
+        }
+        this.userExists = true;
         this.user = data;
         if (this.user.picture == null) {
           this.imageSrc = 'assets/img/defaultUser.jpg'
@@ -52,7 +65,7 @@ export class UserComponent implements OnInit, OnDestroy {
       });
 
       // get climbs
-      this.climbService.getByUser(this.id).subscribe(data => this.climbs = data);
+      this.climbService.getByUser(this.user.userId).subscribe(data => this.climbs = data);
       // get flashes
       const flashes = this.climbs.filter(climb => {
         return climb.isFlash == true;
@@ -83,17 +96,15 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   updateUserPassword() {
-    const id = this.userService.getUserId();
-    this.userService.updatePw({ id: id, password: 'qweQWE123!@#' });
+    this.userService.updatePw({ id: this.user.userId, password: 'qweQWE123!@#' });
   }
 
   uploadImage(event: any) {
-    const id = this.userService.getUserId();
     const file: File = event.target.files[0];
     if (file != null) {
       const formData = new FormData();
       formData.append('image', file);
-      this.imageService.upload('users', id, formData).subscribe({
+      this.imageService.upload('users', this.user.userId, formData).subscribe({
         next: (data: string) => {
           this.user.picture = data;
         },

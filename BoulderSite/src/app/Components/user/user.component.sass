@@ -1,20 +1,28 @@
 @use 'src/assets/styles/variables' as var
 
+$img-diameter: calc(15vw + 5rem)
+
+@media only screen and (max-width: 900)
+    .action-overlay
+        display: none
+
 .image-container
     position: relative
     user-select: none
     width: fit-content
-    margin-bottom: 2rem
+    aspect-ratio: 1/1
 
     .user-image
         display: block
         max-inline-size: 100%
         block-size: auto
-        width: 300px
-        height: 300px
+        width: $img-diameter
+        height: $img-diameter
         border-radius: 50%
         object-fit: cover
         object-position: center
+        box-sizing: border-box
+        border: solid 2px black
 
     .action-overlay
         position: absolute
@@ -30,31 +38,40 @@
             grid-template-rows: 1fr 1fr
             transition: inherit
             opacity: 0
+            cursor: pointer
+            background: linear-gradient(var.$trans-dark 50%, var.$trans-light 50%)
+            backdrop-filter: blur(4px)
+            box-sizing: border-box
+            border: solid 2px black
+
             >div
+                width: 100%
                 display: flex
                 flex-direction: column
                 align-items: center
                 justify-content: center
+                .svg-container
+                    width: calc(4vw + 1.5rem)
+                    height: calc(4vw + 1.5rem)
+                    path
+                        stroke-width: 7%
+                        stroke-linecap: round
+                        stroke-linejoin: round
+                        fill: none
                 &:hover
                     zoom: 1.1
 
                 &.top
                     border-radius: 50% 50% 0 0 / 100% 100% 0 0
-                    background-color: var.$trans-dark
                     color: white
-                    padding-top: 1rem
-
-                    .image-delete
-                        all: unset
-                        pointer-events: none
+                    path
+                        stroke: white
 
                 &.bottom
                     border-radius: 0 0 50% 50% / 0 0 100% 100%
-                    background-color: var.$trans-light
                     color: black
-
-                    .input-text
-                        pointer-events: none
+                    path
+                        stroke: black
 
             #image-input[type=file]
                 width: 0.1px
@@ -68,21 +85,20 @@
                 opacity: 1
 
 .user-container
-    padding: 0 10vw
     flex-wrap: wrap
+    justify-content: center
 
     .card-container
         width: 100%
-        display: grid
-        grid-template-columns: 1fr 1fr
-        justify-content: center
+        display: flex
+        flex-direction: row
+        justify-content: space-around
         align-items: center
         flex-wrap: wrap
         box-sizing: border-box
-        justify-content: space-evenly
-        gap: 3rem
+        align-content: flex-start
         >div
-            height: 100%
+            // height: 100%
             align-items: center
             >div
                 justify-items: center
@@ -93,24 +109,31 @@
             align-items: center
 
         .stats-container,.action-selector
+            width: 100%
             display: flex
             flex-direction: column
-            a
 
             >div
-                display: grid
-                width: 100%
+                // width: 100%
                 gap: 1rem
 
         .stats-container>div
+            display: grid
             grid-template-columns: 1fr 1fr
+            gap: 0 10vw
+            .cat
+                justify-self: end
+            .val
+                justify-self: start
 
         .action-selector>div
-            grid-template-columns: 1fr 1fr
+            display: flex
+            flex-direction: column
             .accent-button
-                width: 100%
+                // width: 100%
 
         .action-container
+            margin-top: 2rem
             display: flex
             flex-direction: column
             justify-content: center

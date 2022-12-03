@@ -21,7 +21,7 @@
 
     <div>
         <div *ngIf="this.userService.isLoggedIn()" class="menu-item">
-            <a [routerLink]="['user/', this.userService.getUserId()]"
+            <a [routerLink]="['user/', this.userService.getUsername()]"
                 routerLinkActive="router-link-active">
                 <div class="link-text">ACCOUNT</div>
             </a>
