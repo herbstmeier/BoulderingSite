@@ -1,10 +1,72 @@
-<p></p>
+<div class="user-container">
+    <div class="card-container card">
+        <div class="info-container">
+            <div class="image-container">
+                <div class="action-overlay" [ngClass]="{hidden: this.id != this.userService.getUserId()}">
+                    <div class="grid-container mtext">
+                        <div class="top" (click)="delete.click()">
+                            <button class="image-delete" (click)="deleteImage()" #delete>Delete</button>
+                        </div>
+                        <div class="bottom" (click)="upload.click()">
+                            <input id="image-input" type="file" (input)="uploadImage($event)" #upload>
+                            <label class="input-text" for="image-input">Upload</label>
+                        </div>
+                    </div>
+                </div>
+                <img class="user-image" [src]="imageSrc" alt="profile picture">
+            </div>
+            <span class="ltext">{{this.user.username}}</span>
+        </div>
+        <div class="stats-container">
+            <h2 class="mtext">Stats:</h2>
+            <div class="stext">
+                <span>Tops:</span>
+                <span>{{this.climbs.length}}</span>
 
-<button (click)="updateUserInfo()">update info</button>
-<button (click)="updateUserPassword()">update password</button>
+                <span>% Flash:</span>
+                <span>{{this.flashPercent}}</span>
+            </div>
+        </div>
+    </div>
 
-<button (click)="deleteUser()">delete user</button>
-<img class="user-image" [src]="imageSrc" alt="profile picture">
-<input id="imageInput" type="file" (input)="uploadImage($event)">
+    <div class="card-container card" *ngIf="this.id == this.userService.getUserId()">
+        <div class="action-selector">
+            <h2 class="mtext">Actions:</h2>
+            <div class="stext">
+                <button class="accent-button" (click)="upload.click()">Upload Profile Picture</button>
+                <button class="accent-button" (click)="deleteImage()">Delete Profile Picture</button>
 
-<button (click)="deleteImage()">delete image</button>
+                <button class="accent-button" [ngClass]="{selected: selectedAction==1}" (click)="setSelectedAction(1)">Update
+                    Password</button>
+                <button class="accent-button" [ngClass]="{selected: selectedAction==1}" (click)="setSelectedAction(2)">Delete Account</button>
+            </div>
+        </div>
+
+        <div class="action-container">
+            <form class="input-form" [formGroup]="updatePwForm" (ngSubmit)="updateUserPassword()"
+                *ngIf="selectedAction==1">
+                <div>
+                    <label for="new-password">New Password:</label>
+                    <div class="password-container">
+                        <input class="password" [type]="showPassword ? 'text' : 'password'"
+                            formControlName="newPassword" autocomplete="new-password" id="new-password"
+                            aria-describedby="password-constraints">
+                        <span class="show-pw"
+                            aria-label="Show password as plain text. Warning: this will display your password on the screen."
+                            (click)="toggleShowPassword()">
+                            {{showPassword ? 'Hide' : 'Show'}}
+                        </span>
+                    </div>
+                    <div id="password-constraints">
+                        Eight or more characters with a mix of lowercase & uppercase letters, numbers and symbols.
+                    </div>
+                </div>
+                <button type="submit">Update</button>
+            </form>
+
+            <p class="mtext" *ngIf="selectedAction==2">Are you sure?</p>
+            <button class="accent-button" (click)="deleteUser()" *ngIf="selectedAction==2">Delete your Account</button>
+        </div>
+
+    </div>
+</div>

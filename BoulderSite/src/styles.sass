@@ -16,6 +16,7 @@
 html,body
     width: 100vw
     height: 100vh
+    overflow: hidden
 
 body
     margin: 0
@@ -28,10 +29,39 @@ body
     body
         background-size: cover
 
+@media only screen and (max-width: 900px)
+    .main-container
+        > * >div:not(.sidebar-container)
+            flex-wrap: wrap
+
+.hidden
+    display: none
+
+.accent-button
+    all: unset
+    cursor: pointer
+    color: black
+    text-align: center
+    font-size: var.$small
+    padding: 1rem
+    background-color: rgba(255, 255, 255, 0.8)
+    border-radius: 0.3rem
+    border: solid 2px transparent
+    box-sizing: border-box
+    &:hover
+        color: white
+        background-color: var.$accent
+
 .main-container
     display: flex
     flex-direction: column
     overflow: overlay
+    > * >div:not(.sidebar-container)
+        margin-top: 7rem
+        display: flex
+        flex-direction: row
+        overflow: hidden
+        gap: 2rem
 
 .button-round
     width: 5rem
@@ -48,21 +78,20 @@ body
     flex-direction: column
     align-items: center
     gap: 1rem
-    margin: 0 auto
-    width: 50%
+    width: 100%
+    box-sizing: border-box
 
     label
         font-size: var.$medium
 
     button
-        background-color: rgba(255, 255, 255, 0.5)
+        background-color: var.$trans-light
         color: grey
         border: none
         padding: 1rem
         font-size: var.$small
         border: solid 3px transparent
         border-radius: 0.3rem
-        margin-top: 1rem
         font-weight: bold
         transition: all 0.1s ease-in-out
 
@@ -85,32 +114,31 @@ body
             display: flex
             flex-direction: column
             align-items: stretch
-            input
-                width: inherit
 
         input
             font-size: var.$small
             border: none
             padding: 0.5rem 1rem
-            border-radius: 1rem
+            border-radius: 0.3rem
             border: solid 2px transparent
 
             &:focus
                 border-color: var.$accent
 
-        input.password
-            padding: 0.5rem 3rem 0.5rem 1rem
-        .show-pw
-            position: absolute
-            height: var.$medium
-            right: 0.5rem
-            top: 50%
-            transform: translate(0%,-50%)
-            font: inherit
-            color: rgba(0, 0, 0, 0.8)
-            margin: auto
-            cursor: default
-            user-select: none
-            font-weight: bold
-            &:hover
-                color: var.$accent
+input.password
+    padding: 0.5rem 3rem 0.5rem 1rem
+.show-pw
+    position: absolute
+    height: 26px
+    right: 0.5rem
+    top: 50%
+    transform: translate(0%,-50%)
+    font: inherit
+    font-size: var.$small
+    color: rgba(0, 0, 0, 0.8)
+    margin: auto
+    cursor: default
+    user-select: none
+    font-weight: bold
+    &:hover
+        color: var.$accent

@@ -1,2 +1,117 @@
-.user-image
-    max-width: 10rem
+@use 'src/assets/styles/variables' as var
+
+.image-container
+    position: relative
+    user-select: none
+    width: fit-content
+    margin-bottom: 2rem
+
+    .user-image
+        display: block
+        max-inline-size: 100%
+        block-size: auto
+        width: 300px
+        height: 300px
+        border-radius: 50%
+        object-fit: cover
+        object-position: center
+
+    .action-overlay
+        position: absolute
+        width: 100%
+        height: 100%
+        transition: all 0.1s ease-in-out
+
+        .grid-container
+            width: 100%
+            height: 100%
+            border-radius: 50%
+            display: grid
+            grid-template-rows: 1fr 1fr
+            transition: inherit
+            opacity: 0
+            >div
+                display: flex
+                flex-direction: column
+                align-items: center
+                justify-content: center
+                &:hover
+                    zoom: 1.1
+
+                &.top
+                    border-radius: 50% 50% 0 0 / 100% 100% 0 0
+                    background-color: var.$trans-dark
+                    color: white
+                    padding-top: 1rem
+
+                    .image-delete
+                        all: unset
+                        pointer-events: none
+
+                &.bottom
+                    border-radius: 0 0 50% 50% / 0 0 100% 100%
+                    background-color: var.$trans-light
+                    color: black
+
+                    .input-text
+                        pointer-events: none
+
+            #image-input[type=file]
+                width: 0.1px
+                height: 0.1px
+                opacity: 0
+                overflow: hidden
+                position: absolute
+                z-index: -1
+
+            &:hover
+                opacity: 1
+
+.user-container
+    padding: 0 10vw
+    flex-wrap: wrap
+
+    .card-container
+        width: 100%
+        display: grid
+        grid-template-columns: 1fr 1fr
+        justify-content: center
+        align-items: center
+        flex-wrap: wrap
+        box-sizing: border-box
+        justify-content: space-evenly
+        gap: 3rem
+        >div
+            height: 100%
+            align-items: center
+            >div
+                justify-items: center
+
+        .info-container
+            display: flex
+            flex-direction: column
+            align-items: center
+
+        .stats-container,.action-selector
+            display: flex
+            flex-direction: column
+            a
+
+            >div
+                display: grid
+                width: 100%
+                gap: 1rem
+
+        .stats-container>div
+            grid-template-columns: 1fr 1fr
+
+        .action-selector>div
+            grid-template-columns: 1fr 1fr
+            .accent-button
+                width: 100%
+
+        .action-container
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center

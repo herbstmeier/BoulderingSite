@@ -5,16 +5,24 @@
             <input type="text" formControlName="username" id="username">
         </div>
         <div>
-            <label for="current-password">Password:</label>
+            <label for="password">Password:</label>
             <div class="password-container">
                 <input class="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
-                    autocomplete="current-password" id="current-password">
-                <span class="show-pw" (click)="toggleShowPassword()">{{showPassword ? 'Hide' : 'Show'}}</span>
+                    autocomplete="password" id="password" aria-describedby="password-constraints">
+                <span class="show-pw"
+                    aria-label="Show password as plain text. Warning: this will display your password on the screen."
+                    (click)="toggleShowPassword()">
+                    {{showPassword ? 'Hide' : 'Show'}}
+                </span>
+            </div>
+            <div id="password-constraints">
+                Eight or more characters with a mix of lowercase & uppercase letters, numbers and symbols.
             </div>
         </div>
         <button type="submit" [disabled]="!loginForm.valid">Sign In</button>
     </form>
 
-    <p class="explain stext">Thanks for wanting to take advantage of our interactive features.<br>You will be either logged in or registered as a
+    <p class="explain stext">Thanks for wanting to take advantage of our interactive features.<br>You will be either
+        logged in or registered as a
         new user depending on wether or not the given username already exists.</p>
 </div>

@@ -1,4 +1,4 @@
-<div class="sidebar-container mtext" [ngClass]="'sel-'+selectedPage.toString()">
+<div class="sidebar-container stext" [ngClass]="'sel-'+selectedPage.toString()">
     <div class="menu-item">
         <a [routerLink]="['']" routerLinkActive="router-link-active">
             <img class="logo logo-black" src="assets/img/logo.png" alt="logo">
@@ -23,7 +23,7 @@
         <div *ngIf="this.userService.isLoggedIn()" class="menu-item">
             <a [routerLink]="['user/', this.userService.getUserId()]"
                 routerLinkActive="router-link-active">
-                <div class="link-text">USER</div>
+                <div class="link-text">ACCOUNT</div>
             </a>
         </div>
 

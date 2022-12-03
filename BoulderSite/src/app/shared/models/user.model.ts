@@ -1,7 +1,7 @@
 export class User {
     userId: number;
     username: string;
-    picture: string;
+    picture: string | null;
     isSetter: boolean;
     isAdmin: boolean;
     //canComment: boolean

@@ -17,11 +17,11 @@ export class ClimbService {
   }
 
   getByBoulder(id: number): Observable<Climb[]> {
-    return this.http.get<Climb[]>(`${baseUrl}/boulder/${id}`);
+    return this.http.get<Climb[]>(`${baseUrl}/boulders/${id}`);
   }
 
   getByUser(id: number): Observable<Climb[]> {
-    return this.http.get<Climb[]>(`${baseUrl}/user/${id}`);
+    return this.http.get<Climb[]>(`${baseUrl}/users/${id}`);
   }
 
   delete(userId: number, boulderId: number) {
@@ -29,10 +29,10 @@ export class ClimbService {
   }
 
   deleteByBoulder(id: number) {
-    this.http.delete(`${baseUrl}/boulder/${id}`, { responseType: 'text' }).subscribe();
+    this.http.delete(`${baseUrl}/boulders/${id}`, { responseType: 'text' }).subscribe();
   }
 
   deleteByUser(id: number) {
-    this.http.delete(`${baseUrl}/user/${id}`, { responseType: 'text' }).subscribe();
+    this.http.delete(`${baseUrl}/users/${id}`, { responseType: 'text' }).subscribe();
   }
 }

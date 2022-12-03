@@ -1,5 +1,6 @@
 var router = require('express').Router();
 const pool = require('../db');
+const { validateToken } = require('./authToken');
 
 // REGISTER CLIMB
 router.post("/", async function create(req, res) {

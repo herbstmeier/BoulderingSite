@@ -63,14 +63,6 @@ router.get('/', async function getAll(req, res) {
 
 // GET USER BY ID
 router.get('/:id', async function getById(req, res) {
-    // CHECKING AUTHORIZATION = LOGGED IN
-    try {
-        validateToken(req.headers.authorization);
-    } catch (error) {
-        res.status(401).send(error.message);
-        return;
-    }
-
     try {
         const rows = await pool.query('select userId,username,picture,isSetter,isAdmin from users where userId=?', req.params.id);
         res.status(200).json(rows[0]);

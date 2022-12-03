@@ -20,6 +20,7 @@ export class ResponseInterceptor implements HttpInterceptor {
       tap({
         error: (err) => {
           if (err instanceof HttpErrorResponse) {
+            console.log(err)
             if (err.status == 401 && err.error == 'jwt expired') {
               this.userService.setLoggedOut();
               this.router.navigateByUrl('');

@@ -11,8 +11,8 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class LoginComponent {
   loginForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
+    username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z!-@]*')]]
   })
   showPassword: boolean = false;
 
