@@ -34,7 +34,7 @@ body
             flex-wrap: wrap
 
 .hidden
-    display: none
+    display: none !important
 
 .main-container
     background: linear-gradient(135deg, var.$background1 0%, var.$background2 100%)
@@ -42,6 +42,8 @@ body
     flex-direction: column
     overflow: overlay
     > * >div:not(.sidebar-container)
+        width: 100%
+        box-sizing: border-box
         padding: 0 10vw
         margin: 10vh 0 2vh 0
         display: flex
@@ -116,15 +118,12 @@ body
         font-size: var.$medium
 
     button
-        background-color: var.$trans-light
-        color: grey
-        border: none
-        padding: 1rem
-        font-size: var.$small
-        border: solid 3px transparent
-        border-radius: 0.3rem
         font-weight: bold
-        transition: all 0.1s ease-in-out
+
+    &.ng-invalid button
+        color: grey
+        &:hover
+            background-color: var.$accent-soft
 
     &.ng-valid button
         color: black

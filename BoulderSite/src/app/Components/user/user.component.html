@@ -8,7 +8,7 @@
     <div class="card-container card">
         <div class="info-container">
             <div class="image-container">
-                <div class="action-overlay" [ngClass]="{hidden: this.user.userId != this.userService.getUserId()}">
+                <div class="action-overlay" [ngClass]="{hidden: !this.isCurrentUser}">
                     <div class="grid-container mtext">
                         <div class="top" (click)="deleteImage()">
                             <!-- <button class="image-delete" (click)="deleteImage()" #delete>Delete</button> -->
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <div class="card-container" *ngIf="this.user.userId == this.userService.getUserId()">
+    <div class="card-container" [ngClass]="{hidden: !this.isCurrentUser}">
         <div class="action-selector">
             <!-- <h2 class="mtext">Actions:</h2> -->
             <div class="stext">

@@ -19,15 +19,19 @@ import { UserService } from 'src/app/shared/services/user.service';
 
 export class UserComponent implements OnInit, OnDestroy {
   userExists: boolean = true;
+  isCurrentUser: boolean = true;
+
   imageSrc: string = '';
   user: User = new User();
   climbs: Climb[] = new Array();
   flashPercent: number = 0;
+
   selectedAction: number = 0;
   showPassword: boolean = false;
   updatePwForm = this.fb.group({
     newPassword: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]]
   });
+
   routerSubscription?: Subscription;
 
   @ViewChild('action') set action(element: any) {
@@ -57,6 +61,7 @@ export class UserComponent implements OnInit, OnDestroy {
         }
         this.userExists = true;
         this.user = data;
+        this.isCurrentUser = (this.user.userId == this.userService.getUserId());
         if (this.user.picture == null) {
           this.imageSrc = 'assets/img/defaultUser.jpg'
         } else {
@@ -101,7 +106,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   uploadImage(event: any) {
     const file: File = event.target.files[0];
-    if (file != null) {
+    if (file != null && file.size < 2097152) {
       const formData = new FormData();
       formData.append('image', file);
       this.imageService.upload('users', this.user.userId, formData).subscribe({

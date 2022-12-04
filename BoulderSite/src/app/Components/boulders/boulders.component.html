@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <router-outlet></router-outlet>
+    <app-boulder-create *ngIf="this.userService.getUserAuthLevel() > 1"></app-boulder-create>
 
     <div *ngFor="let boulder of boulders">
         <p>{{ boulder.grade }}</p>

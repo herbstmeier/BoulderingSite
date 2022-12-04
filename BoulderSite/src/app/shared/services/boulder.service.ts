@@ -10,20 +10,21 @@ const baseUrl = 'http://localhost:9000/api/boulders';
 })
 export class BoulderService {
 
+  boulders: Boulder[] = new Array<Boulder>;
+
   constructor(private http: HttpClient) { }
 
-  create(data: CreateBoulderModel) {
-    this.http.post(baseUrl, data, { responseType: 'text' }).subscribe({
-      complete() { }
-    });
+  create(data: CreateBoulderModel): Observable<any> {
+    console.log(data);
+    return this.http.post(baseUrl, data);
   }
 
   get(id: number): Observable<Boulder> {
     return this.http.get<Boulder>(`${baseUrl}/${id}`);
   }
 
-  getAll(): Observable<Boulder[]> {
-    return this.http.get<Boulder[]>(baseUrl);
+  getAll() {
+    this.http.get<Boulder[]>(baseUrl).subscribe((data: Boulder[]) => this.boulders = data);
   }
 
   update(data: Boulder) {

@@ -60,7 +60,7 @@ router.delete("/boulders/:id", async function deleteByBoulder(req, res) {
     // CHECKING AUTHORIZATION = ADMIN or SETTER
     try {
         const token = validateToken(req.headers.authorization);
-        const row = await pool.query('select isSetter,isAdmin from users where=?', token.sub);
+        const row = await pool.query('select isSetter,isAdmin from users where userId=?', token.sub);
         if (!(row[0].isAdmin || row[0].isSetter)) throw new Error('unauthorized request.');
     } catch (error) {
         res.status(401).send(error.message);

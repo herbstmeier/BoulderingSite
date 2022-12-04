@@ -13,13 +13,13 @@ export class Boulder {
 }
 
 export class CreateBoulderModel {
+    setterId: number;
     grade: string;
     colorId: number;
-    picture: string;
 
-    constructor(grade: string, colorId: number, picture: string) {
+    constructor(setterId: number, grade: string, colorId: number) {
+        this.setterId = setterId;
         this.grade = grade;
         this.colorId = colorId;
-        this.picture = picture;
     }
 }

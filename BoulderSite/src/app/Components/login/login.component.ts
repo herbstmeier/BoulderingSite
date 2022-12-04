@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthUserModel } from '../../shared/models/user.model';
+import { AuthUser } from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class LoginComponent {
   submitLogin() {
     const username = this.loginForm.value.username ? this.loginForm.value.username : '';
     const password = this.loginForm.value.password ? this.loginForm.value.password : '';
-    const user = new AuthUserModel(username, password);
+    const user = new AuthUser(username, password);
 
     this.userService.login(user).subscribe({
       next: (data: { token: string, id: number, username: string, authLevel: number, expiresIn: number }) => {

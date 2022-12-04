@@ -2,10 +2,10 @@
 
 CREATE TABLE if not EXISTS `Users` (
     `userId` int AUTO_INCREMENT NOT NULL ,
-    `username` varchar(20)  NOT NULL ,
+    `username` varchar(20)  NOT NULL UNIQUE,
     `encryptedPassword` binary (64) NOT NULL,
     `salt` binary (16) not NULL,
-    `picture` varchar(50)  NULL ,
+    `picture` char(20)  NULL UNIQUE,
     `isSetter` bit NOT NULL,
     `isAdmin` bit NOT NULL,
     PRIMARY KEY (
@@ -16,9 +16,9 @@ CREATE TABLE if not EXISTS `Users` (
 CREATE TABLE if not EXISTS `Boulders` (
     `boulderId` int AUTO_INCREMENT NOT NULL ,
     `setterId` int NOT NULL,
-    `grade` varchar(5)  NOT NULL ,
+    `grade` varchar(3)  NOT NULL ,
     `colorId` int NOT NULL , 
-    `picture` varchar(50)  NULL ,
+    `picture` char(20)  NULL ,
     PRIMARY KEY (
         `boulderId`
     )
@@ -40,7 +40,7 @@ CREATE TABLE if not EXISTS `BouldersTags` (
 CREATE TABLE if not EXISTS `Colors` (
     `colorId` int AUTO_INCREMENT not NULL ,
     `colorName` VARCHAR(15) not NULL UNIQUE,
-    `hexCode` CHAR(6) UNIQUE,
+    `hexCode` CHAR(7) UNIQUE,
     PRIMARY KEY (
         `colorId`
     )

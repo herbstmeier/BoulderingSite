@@ -1,1 +1,37 @@
-<p>boulder-create works!</p>
+<div class="boulder-create-container">
+    <span class="mtext">New Boulder:</span>
+    <form [formGroup]="boulderForm" (ngSubmit)="createBoulder(image)" #form>
+        <div>
+            <span class="stext">Setter:</span>
+            <select formControlName="settersSelect">
+                <option *ngFor="let setter of this.userService.setters" [value]="setter.userId">{{setter.username}}</option>
+            </select>
+        </div>
+        <div>
+            <label class="stext" for="grade">Grade: </label>
+            <input formControlName="grade" type="text" name="grade" id="grade" placeholder="e.g. 6c+, 5, 8a">
+        </div>
+        <div>
+            <span class="stext">Color:</span>
+            <div class="color-container">
+                <select formControlName="colorsSelect">
+                    <option *ngFor="let color of this.colorService.colors" [value]="color.colorId">
+                        <span>{{color.colorName}}</span>
+                        <div [style]="'border: 2px solid black; background-color: ' + color.hexCode"></div>
+                    </option>
+                </select>
+                <form [formGroup]="colorForm" (ngSubmit)="createColor()">
+                    <input formControlName="hexCode" type="color" name="new-color" id="new-color">
+                    <input formControlName="colorName" type="text" name="colorName" id="colorName"
+                        placeholder="color name">
+                    <button type="submit">New Color</button>
+                </form>
+            </div>
+        </div>
+        <div>
+            <span class="stext">Image:</span>
+            <input type="file" name="image" id="image" #image>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</div>

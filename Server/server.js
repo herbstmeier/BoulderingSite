@@ -34,8 +34,10 @@ const bouldersTagsRouter = require('./routes/bouldersTags.routes');
 const climbRouter = require('./routes/climb.routes');
 const ratingRouter = require('./routes/rating.routes');
 const commentRouter = require('./routes/comment.routes');
+const colorRouter = require('./routes/colors.routes');
 const imageRouter = require('./routes/imageUpload.routes');
 const imageServe = require('./routes/imageServe.routes');
+
 app.use('/api/users', userRouter);
 app.use('/api/tags', tagRouter);
 app.use('/api/boulders', boulderRouter);
@@ -43,6 +45,7 @@ app.use('/api/boulderstags', bouldersTagsRouter);
 app.use('/api/climbs', climbRouter);
 app.use('/api/ratings', ratingRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/colors', colorRouter);
 app.use('/api/images', imageRouter);
 app.use('/storage/img', imageServe);
 

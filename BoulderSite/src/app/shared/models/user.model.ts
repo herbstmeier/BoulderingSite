@@ -15,12 +15,22 @@ export class User {
     }
 }
 
-export class AuthUserModel {
+export class AuthUser {
     username: string;
     password: string;
 
     constructor(username: string, password: string) {
         this.username = username;
         this.password = password;
+    }
+}
+
+export class SelectSetter {
+    userId: number;
+    username: string;
+
+    constructor(userId: number, username: string) {
+        this.userId = userId;
+        this.username = username;
     }
 }

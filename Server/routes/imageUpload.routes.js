@@ -18,7 +18,7 @@ router.post('/:dest/:id', upload.single('image'), async (req, res) => {
         if (req.params.dest == 'boulders') {
             // CHECKING AUTHORIZATION = ADMIN or SETTER
             const token = validateToken(req.headers.authorization);
-            const row = await pool.query('select isSetter,isAdmin from users where=?', token.sub);
+            const row = await pool.query('select isSetter,isAdmin from users where userId=?', token.sub);
             if (!(row[0].isAdmin || row[0].isSetter)) throw new Error('unauthorized request.');
         } else if (req.params.dest == 'users') {
             // CHECKING AUTHORIZATION = USER ID MATCH
@@ -77,7 +77,7 @@ router.delete('/:dest/:id/:name', async function deletePicture(req, res) {
         if (req.params.dest == 'boulders') {
             // CHECKING AUTHORIZATION = ADMIN or SETTER
             const token = validateToken(req.headers.authorization);
-            const row = await pool.query('select isSetter,isAdmin from users where=?', token.sub);
+            const row = await pool.query('select isSetter,isAdmin from users where userId=?', token.sub);
             if (!(row[0].isAdmin || row[0].isSetter)) throw new Error('unauthorized request.');
         } else if (req.params.dest == 'users') {
             // CHECKING AUTHORIZATION = USER ID MATCH

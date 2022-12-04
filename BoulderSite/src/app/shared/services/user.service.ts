@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthUserModel, User } from '../models/user.model';
+import { AuthUser, SelectSetter, User } from '../models/user.model';
 import * as moment from 'moment';
 
 const baseUrl = 'http://localhost:9000/api/users';
@@ -11,6 +11,8 @@ const baseUrl = 'http://localhost:9000/api/users';
 })
 export class UserService {
 
+  setters: SelectSetter[] = new Array<SelectSetter>;
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -18,8 +20,8 @@ export class UserService {
    * @param loginData Email and Password
    * @returns An `Observable`
    */
-  public login(loginData: AuthUserModel): Observable<any> {
-    return this.http.post<AuthUserModel>(`${baseUrl}/login`, loginData);
+  public login(loginData: AuthUser): Observable<any> {
+    return this.http.post<AuthUser>(`${baseUrl}/login`, loginData);
   }
 
   public getById(id: number): Observable<User> {
@@ -32,6 +34,10 @@ export class UserService {
 
   public getAll(): Observable<User[]> {
     return this.http.get<User[]>(baseUrl);
+  }
+
+  public getSetters() {
+    this.http.get<SelectSetter[]>(`${baseUrl}/setters`).subscribe((data: SelectSetter[]) => this.setters = data);
   }
 
   public updateInfo(data: User) {
