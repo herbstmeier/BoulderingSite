@@ -97,7 +97,8 @@ router.delete('/', async function deleteAll(req, res) {
     }
 
     try {
-        await pool.query("delete from boulders");
+        await pool.query('delete from boulders');
+        await pool.query('alter table boulders AUTO_INCREMENT=1');
         res.sendStatus(200);
     } catch (error) {
         res.status(400).send(error.message);
