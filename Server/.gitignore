@@ -130,8 +130,8 @@ dist
 .pnp.*
 
 # sql scripts
-sql/
-.sql
+**sql
+*.sql
 
 # storage directory
-storage/
+*.png
