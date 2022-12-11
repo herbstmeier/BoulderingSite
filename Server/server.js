@@ -9,7 +9,7 @@ const dotenv = require('dotenv')
 
 dotenv.config({ path: '.env-local' })
 
-const _environment = process.env.ENVIRONMENT || 'develop';
+const _environment = 'production';
 const _port = 9000;
 const _app_folder = 'dist/boulder-site';
 
@@ -51,13 +51,13 @@ app.use('/storage/img', imageServe);
 
 if (_environment === 'production') {
     // ---- LIMIT FOR TOO MANY CONNECTIONS ---- //
-    const rateLimit = require("express-rate-limit");
-    const limiter = rateLimit({
-        windowMs: 10000,
-        max: 200,
-        message: "Too many requests from this IP, please try again"
-    });
-    app.use(limiter);
+    // const rateLimit = require("express-rate-limit");
+    // const limiter = rateLimit({
+    //     windowMs: 10000,
+    //     max: 200,
+    //     message: "Too many requests from this IP, please try again"
+    // });
+    // app.use(limiter);
 
     // ---- REDIRECT TO HTTPS ---- //
     app.enable('trust proxy');

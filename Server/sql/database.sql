@@ -1,1 +1,1 @@
-create DATABASE IF NOT EXISTS bouldersitedb;
+create DATABASE IF NOT EXISTS redpointdb;

@@ -1,4 +1,4 @@
-﻿use bouldersitedb;
+﻿use redpointdb;
 
 CREATE TABLE if not EXISTS `Users` (
     `userId` int AUTO_INCREMENT NOT NULL ,
