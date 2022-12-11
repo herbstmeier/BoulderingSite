@@ -1,1 +1,0 @@
-mysql -u root -p 1234 bouldersitedb < tags.sql;
