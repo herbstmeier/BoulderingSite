@@ -10,19 +10,13 @@ jobs:
     # use ubuntu-latest image to run steps on
     runs-on: ubuntu-latest
     steps:
-    # uses GitHub's checkout action to checkout code form the master branch
+    # uses GitHub's checkout action to checkout code from the master branch
     - uses: actions/checkout@v2
     
-    # sets up Angular CLI
-    - name: Angular Full CI
-      # You may pin to the exact commit or the version.
-      # uses: colbyhill21/angular-full-ci@a3489087f6a715db335078f999c01d422a254a6c
-      uses: colbyhill21/angular-full-ci@v1.0
+    - name: test action
+      uses: colbyhill21/angular-full-ci/@v1.0
       with:
-        # Command to run tests on your project, do not prepend with "npm", it is already included.
         testcommand: run test:ci
-        # Set to true in order to run mocha tests. This option will install mocha on the image.
-        mocha: false
 
     # publishes Blazor project to the release-folder
     - name: Build Angular
